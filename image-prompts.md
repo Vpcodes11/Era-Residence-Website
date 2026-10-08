@@ -11,3 +11,5 @@ Shared direction: original imaginary AURA Residence near Estepona; pale traverti
 - `coast.png`: Imagined aerial Mediterranean coastline near Estepona, sandy beach, turquoise sea, pines, low-rise neighbourhood and distant mountains.
 - `spa.png`: Indoor travertine spa pool, wooden sauna, bronze glass partitions, skylight and Mediterranean courtyard planting.
 
+- `bougainvillea.png`: Original transparent foreground foliage layer. A hanging bougainvillea branch enters from the upper right and sweeps downward, with vivid fuchsia bracts, pale pink flowers, textured dark green leaves and fine woody stems. Photorealistic depth, a few softly blurred foreground blossoms, warm Mediterranean sunlight, genuine transparent alpha, no scenery, pot, text, logo or watermark. Generated with built-in imagegen and optimized to `dist/assets/bougainvillea.webp`.
+

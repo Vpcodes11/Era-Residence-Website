@@ -11,8 +11,9 @@
     "start": "node server.cjs",
     "preview": "node server.cjs",
     "build": "node build-original.cjs",
-    "check": "node --check src/app.js",
-    "qa": "node qa.cjs"
+    "check": "node --check src/app.js && node --check src/motion.js",
+    "qa": "node qa.cjs",
+    "qa:motion": "node motion-qa.cjs"
   },
   "devDependencies": {
     "sharp": "^0.35.5"
