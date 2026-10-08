@@ -1,0 +1,2 @@
+const fs=require('fs'),sharp=require('sharp');
+(async()=>{fs.mkdirSync('output/imagegen',{recursive:true});for(const name of ['hero-day','hero-night','terrace','interior','coast','spa']){const source=fs.existsSync('dist/assets/'+name+'.png')?'dist/assets/'+name+'.png':'output/imagegen/'+name+'.png';await sharp(source).webp({quality:88,effort:6}).toFile('dist/assets/'+name+'.webp');if(source.startsWith('dist/'))fs.renameSync(source,'output/imagegen/'+name+'.png');}console.log('Optimized six original assets for delivery.');})();

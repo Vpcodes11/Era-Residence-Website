@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "playwright": "^1.64.0"
+  },
+  "name": "aura-residence",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.cjs",
+    "preview": "node server.cjs",
+    "build": "node build-original.cjs",
+    "check": "node --check src/app.js",
+    "qa": "node qa.cjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
+}

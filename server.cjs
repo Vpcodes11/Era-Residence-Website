@@ -1,0 +1,4 @@
+const http=require('http'),fs=require('fs'),path=require('path');
+const root=path.resolve('dist');
+http.createServer((req,res)=>{let pathname;try{pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname)}catch{res.writeHead(400).end('Invalid URL');return}let file=path.join(root,pathname);if(!file.startsWith(root+path.sep)&&file!==root){res.writeHead(403).end();return}if(fs.existsSync(file)&&fs.statSync(file).isDirectory())file=path.join(file,'index.html');if(!fs.existsSync(file)){res.writeHead(404).end('Not found');return}res.setHeader('Content-Type',({'html':'text/html','js':'application/javascript','css':'text/css','svg':'image/svg+xml','webp':'image/webp','png':'image/png'})[file.split('.').pop()]||'application/octet-stream');fs.createReadStream(file).pipe(res)}).listen(4187,'127.0.0.1',()=>console.log('Local: http://127.0.0.1:4187'));
+
