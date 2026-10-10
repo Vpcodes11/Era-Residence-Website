@@ -2,7 +2,8 @@
   "dependencies": {
     "cheerio": "^1.2.0",
     "gsap": "^3.15.0",
-    "playwright": "^1.64.0"
+    "playwright": "^1.64.0",
+    "three": "^0.186.1"
   },
   "name": "aura-residence",
   "version": "1.0.0",
@@ -11,9 +12,11 @@
     "start": "node server.cjs",
     "preview": "node server.cjs",
     "build": "node build-original.cjs",
-    "check": "node --check src/app.js && node --check src/motion.js",
+    "check": "node --check src/app.js && node --check src/motion.js && node --check src/immersive.js && node --check src/atelier.js",
     "qa": "node qa.cjs",
-    "qa:motion": "node motion-qa.cjs"
+    "qa:motion": "node motion-qa.cjs",
+    "qa:webgl": "node webgl-qa.cjs",
+    "qa:atelier": "node atelier-qa.cjs"
   },
   "devDependencies": {
     "sharp": "^0.35.5"

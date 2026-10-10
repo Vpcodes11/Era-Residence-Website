@@ -1,0 +1,13 @@
+/* The accessible original images stay beneath the GPU enhancement. */
+.immersive-host{position:relative;isolation:isolate}
+.immersive-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:0}
+.hero.immersive-live>.hero-scene,.hero.immersive-live>.hero-pointer-layer{visibility:hidden}
+.concept-portal.immersive-live>img,.architecture-gate .photo.immersive-live>img,.footer.immersive-live>img{visibility:hidden}
+.architecture-gate:has(.immersive-live)>.scene-foliage{visibility:hidden}
+.concept-scene-label{z-index:2}
+.hero.immersive-live::after{z-index:1}
+.footer.immersive-live::after{z-index:1;pointer-events:none}
+.footer.immersive-live>.footer-title,.footer.immersive-live>.footer-details,.footer.immersive-live>.to-top{z-index:2}
+.footer.immersive-live .immersive-canvas{filter:brightness(.78)}
+.footer .to-top{right:20vw}
+@media(prefers-reduced-motion:reduce){.immersive-canvas{display:none}}

@@ -6,3 +6,8 @@ inspect.cjs
 screenshots/
 aura-residence/
 output/imagegen/
+.env
+.env.*
+!.env.example
+*.pem
+*.key

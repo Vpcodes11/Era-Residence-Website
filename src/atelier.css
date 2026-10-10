@@ -1,0 +1,29 @@
+.atelier{position:relative;height:100svh;min-height:860px;background:radial-gradient(ellipse at 50% 45%,#fffdf6,var(--paper) 65%);overflow:hidden;transition:background .8s,color .8s;padding:128px 7.2vw 38px}
+.atelier-heading{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;pointer-events:none;margin-left:85px}
+.atelier-heading h2{font:400 clamp(65px,6.8vw,118px)/.86 var(--serif);text-transform:uppercase;max-width:8em}
+.atelier-heading h2 .script{display:block;text-transform:none;font-size:1.05em;margin-left:1em;line-height:.8;margin-top:.06em}
+.atelier-heading .eyebrow{margin-bottom:22px;font-size:10px}
+.atelier-heading>p{font-size:12px;line-height:1.7;width:225px;padding-top:40px}
+.atelier-stage{position:absolute;inset:190px 2vw 190px;touch-action:pan-y;cursor:grab;outline-offset:-8px;border-radius:30px}
+.atelier-stage.is-dragging{cursor:grabbing}.atelier-stage .immersive-canvas{pointer-events:none}
+.atelier-fallback{position:absolute;inset:0;border-radius:50% 50% 4px 4px;object-fit:cover;max-width:650px;margin:auto}
+.atelier-stage.immersive-live>.atelier-fallback{visibility:hidden}
+.atelier-stage.immersive-live>.immersive-canvas{animation:atelier-appear 1s ease-out}
+@keyframes atelier-appear{from{opacity:0}to{opacity:1}}
+.atelier-controls{position:absolute;bottom:40px;left:7.2vw;right:7.2vw;display:grid;grid-template-columns:1.2fr 1fr auto;gap:6vw;align-items:end;z-index:2}
+.atelier-views{display:flex;gap:23px;margin-bottom:24px}.atelier-views button{padding:0 0 5px;border-bottom:1px solid transparent;font:400 25px var(--serif);text-transform:uppercase;opacity:.55}.atelier-views button[aria-pressed=true]{border-color:currentColor;opacity:1}
+.atelier-focus h3{font:400 31px/1 var(--serif);text-transform:uppercase;margin-bottom:10px}.atelier-description{font-size:11px;line-height:1.7;max-width:325px;min-height:3.4em}
+.atelier-light label{display:block;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:15px}.atelier-light input{display:block;width:100%;accent-color:var(--ink);height:18px;margin:0;cursor:ew-resize}
+.atelier-light output{display:block;font-size:10px;margin-top:13px}.atelier-light .light-scale{display:flex;justify-content:space-between;font-size:9px;margin-top:8px;opacity:.6}
+.atelier-orbit>p{font-size:9px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:15px;text-align:center}.atelier-orbit>div{display:flex;gap:8px}.atelier-orbit button{border:1px solid var(--line);border-radius:50%;width:42px;height:42px;font-size:19px}.atelier-orbit button:hover{background:var(--ink);color:var(--paper)}
+.atelier:not(:has(.immersive-live)) .atelier-orbit{visibility:hidden}
+.atelier:not(:has(.immersive-live)) .atelier-light{visibility:hidden}
+.atelier-evening{background:radial-gradient(ellipse at 50% 45%,#314356,#172439 75%);color:var(--paper)}.atelier-evening .atelier-light input{accent-color:#ded2ad}.atelier-evening .atelier-orbit button{border-color:#f2f1e955}
+.atelier-note{position:absolute;top:36px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:8px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+body:has(.atelier-stage.immersive-live)>.scroll-label,body:has(.atelier-stage.immersive-live)>.motion-progress{opacity:0}
+@media(max-width:1000px){.atelier{height:auto;min-height:1080px;padding:85px 7vw 50px}.atelier-heading{display:block;margin-left:0}.atelier-heading h2{font-size:80px}.atelier-heading>p{width:300px;padding-top:25px}.atelier-stage{position:relative;inset:auto;height:470px;margin:0 -5vw;max-width:none}.atelier-controls{position:relative;inset:auto;grid-template-columns:1fr 1fr;gap:35px}.atelier-orbit{grid-column:2;grid-row:1;align-self:start;justify-self:end}.atelier-light{grid-column:1/-1;width:100%;max-width:400px}.atelier-heading .eyebrow{font-size:9px}.atelier-focus h3{font-size:28px}.atelier-views{gap:18px}.atelier-views button{font-size:22px}.atelier-description{font-size:10px}.atelier-note{top:32px;font-size:7px}}
+@media(max-width:600px){.atelier{min-height:1120px;padding-top:72px}.atelier-heading h2{font-size:19vw}.atelier-heading h2 .script{margin-left:.6em}.atelier-heading>p{font-size:11px;max-width:290px}.atelier-stage{height:415px;margin:0 -6vw}.atelier-controls{display:flex;flex-wrap:wrap;gap:27px}.atelier-focus{width:100%}.atelier-views{justify-content:space-between;margin-bottom:18px}.atelier-light{width:calc(100% - 96px)}.atelier-orbit{margin-left:auto;width:70px;align-self:center}.atelier-orbit>p{font-size:7px;letter-spacing:.05em}.atelier-orbit>div{flex-wrap:wrap;justify-content:center;gap:5px}.atelier-orbit button{width:30px;height:30px;font-size:15px}.atelier-orbit button[data-atelier-rotate=reset]{display:none}.atelier-description{max-width:290px}.atelier-note{right:7vw}}
+@media(prefers-reduced-motion:reduce){.atelier{transition:none}}
+.atelier-views button{min-height:44px}.atelier-light input{height:32px}
+@media(max-width:600px){.atelier-orbit{width:96px}.atelier-orbit button{width:44px;height:44px}.atelier-light{width:calc(100% - 123px)}}
+@media(max-width:600px){.atelier{padding-top:140px}.atelier-note{left:auto;right:7vw;transform:none}}

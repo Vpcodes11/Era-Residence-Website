@@ -40,7 +40,7 @@
   if(context.conditions.reduce)return;
   const desktop=context.conditions.desktop;
   // Scroll into the courtyard, while type and foreground sit on separate planes.
-  const timeline=gsap.timeline({scrollTrigger:{id:'aura-hero',trigger:hero,start:'top top',end:()=>'+='+innerHeight*(desktop?.85:.45),pin:true,scrub:.8,invalidateOnRefresh:true}});
+  const timeline=gsap.timeline({scrollTrigger:{id:'aura-hero',trigger:hero,start:'top top',end:()=>'+='+innerHeight*(desktop?1.8:.65),pin:true,scrub:.8,invalidateOnRefresh:true}});
   timeline.fromTo(scene,{scale:1,yPercent:0},{scale:1.28,yPercent:-6,ease:'none',immediateRender:false},0)
    .fromTo('.hero-content',{yPercent:0,scale:1,opacity:1},{yPercent:-28,scale:.86,opacity:0,ease:'power1.in',immediateRender:false},0)
    .fromTo('.hero-bottom',{y:0,opacity:1},{y:30,opacity:0,ease:'none',immediateRender:false},0)
@@ -66,7 +66,7 @@
  if(hover.matches){hero.addEventListener('pointermove',e=>{pointer.x=(e.clientX/innerWidth-.5)*2;pointer.y=(e.clientY/innerHeight-.5)*2});hero.addEventListener('pointerleave',()=>{pointer.x=0;pointer.y=0});gsap.ticker.add(()=>{if(document.hidden||hero.getBoundingClientRect().bottom<0)return;lastX+=(pointer.x-lastX)*.055;lastY+=(pointer.y-lastY)*.055;gsap.set(pointerLayer,{x:lastX*28,y:lastY*18,rotationY:lastX*4,rotationX:-lastY*3});gsap.set(scene,{x:-lastX*14,rotationY:lastX*.6,rotationX:-lastY*.4});});}
  ScrollTrigger.create({id:'aura-progress',start:0,end:'max',onUpdate:self=>{progress.querySelector('b').textContent=String(Math.round(self.progress*100)).padStart(2,'0');gsap.set(progress.querySelector('span'),{scaleY:self.progress});}});
  const concept=document.querySelector('.concept-image');concept.setAttribute('data-light','');concept.classList.remove('reveal');concept.classList.add('concept-portal');const conceptLabel=document.createElement('span');conceptLabel.className='concept-scene-label script';conceptLabel.setAttribute('aria-hidden','true');conceptLabel.textContent='The concept';concept.append(conceptLabel);
- const locationSection=document.querySelector('.location');locationSection.classList.add('journey');const track=document.createElement('div');track.className='journey-track';while(locationSection.firstChild)track.append(locationSection.firstChild);locationSection.append(track);const view=document.createElement('div');view.className='journey-view';view.innerHTML='<img src="/assets/terrace.webp" alt="AURA terrace overlooking the Mediterranean" loading="lazy"><span class="script" aria-hidden="true">A slower rhythm</span>';track.append(view);
+ const locationSection=document.querySelector('.location');locationSection.classList.add('journey');const track=document.createElement('div');track.className='journey-track';while(locationSection.firstChild)track.append(locationSection.firstChild);locationSection.append(track);const view=document.createElement('div');view.className='journey-view';view.innerHTML='<img src="/assets/coastal-path.webp" alt="A coastal path connecting AURA to the Mediterranean" loading="lazy"><span class="script" aria-hidden="true">A slower rhythm</span>';track.append(view);
  const architecture=document.querySelector('.architecture');architecture.classList.add('architecture-immersive');const gate=document.createElement('div');gate.className='architecture-gate';gate.append(architecture.querySelector('h2'),architecture.querySelector('.photo'));gate.querySelectorAll('.reveal').forEach(el=>el.classList.remove('reveal'));gate.insertAdjacentHTML('beforeend','<div class="gate-door gate-left" aria-hidden="true"></div><div class="gate-door gate-right" aria-hidden="true"></div>');architecture.prepend(gate);
  for(const selector of ['.location-title','.architecture-gate','.living-title']){const container=document.querySelector(selector);const foliage=document.createElement('img');foliage.src='/assets/bougainvillea.webp';foliage.alt='';foliage.setAttribute('aria-hidden','true');foliage.className='scene-foliage';foliage.loading='lazy';container.append(foliage);}
  media.add({desktop:'(min-width: 1001px)',mobile:'(max-width: 1000px)',reduce:'(prefers-reduced-motion: reduce)'},context=>{
@@ -77,6 +77,8 @@
   gsap.fromTo(concept.querySelector('img'),{scale:1.25},{scale:1,ease:'none',scrollTrigger:{trigger:concept,start:'top bottom',end:'bottom top',scrub:1}});
   gsap.fromTo(conceptLabel,{opacity:0,y:70},{opacity:1,y:0,ease:'none',scrollTrigger:{trigger:concept,start:'top 40%',end:'bottom 80%',scrub:.7}});
   if(desktop){
+   const atelier=document.querySelector('.atelier');
+   ScrollTrigger.create({id:'aura-atelier',trigger:atelier,start:'top top',end:()=>'+='+innerHeight*.9,pin:true,invalidateOnRefresh:true});
    gsap.to(track,{x:()=>-(track.scrollWidth-innerWidth),ease:'none',scrollTrigger:{id:'aura-location',trigger:locationSection,start:'top top',end:()=>'+='+(track.scrollWidth-innerWidth),pin:true,scrub:1,invalidateOnRefresh:true}});
    let current=-1;
    const amenity=document.querySelector('.amenities');
