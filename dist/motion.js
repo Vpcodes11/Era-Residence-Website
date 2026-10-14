@@ -36,11 +36,11 @@
  }
  const chars=splitHeading(hero.querySelector('h1'));
  const media=gsap.matchMedia();
- media.add({desktop:'(min-width: 1001px)',mobile:'(max-width: 1000px)',reduce:'(prefers-reduced-motion: reduce)'},context=>{
+ media.add({desktop:'(min-width: 1001px)',mobile:'(max-width: 1000px)',heroFits:'(min-height: 650px)',reduce:'(prefers-reduced-motion: reduce)'},context=>{
   if(context.conditions.reduce)return;
   const desktop=context.conditions.desktop;
   // Scroll into the courtyard, while type and foreground sit on separate planes.
-  const timeline=gsap.timeline({scrollTrigger:{id:'aura-hero',trigger:hero,start:'top top',end:()=>'+='+innerHeight*(desktop?1.8:.65),pin:true,scrub:.8,invalidateOnRefresh:true}});
+  const timeline=gsap.timeline({scrollTrigger:{id:'aura-hero',trigger:hero,start:'top top',end:()=>'+='+innerHeight*(desktop?1.8:.65),pin:context.conditions.heroFits,scrub:.8,invalidateOnRefresh:true}});
   timeline.fromTo(scene,{scale:1,yPercent:0},{scale:1.28,yPercent:-6,ease:'none',immediateRender:false},0)
    .fromTo('.hero-content',{yPercent:0,scale:1,opacity:1},{yPercent:-28,scale:.86,opacity:0,ease:'power1.in',immediateRender:false},0)
    .fromTo('.hero-bottom',{y:0,opacity:1},{y:30,opacity:0,ease:'none',immediateRender:false},0)
@@ -66,10 +66,9 @@
  if(hover.matches){hero.addEventListener('pointermove',e=>{pointer.x=(e.clientX/innerWidth-.5)*2;pointer.y=(e.clientY/innerHeight-.5)*2});hero.addEventListener('pointerleave',()=>{pointer.x=0;pointer.y=0});gsap.ticker.add(()=>{if(document.hidden||hero.getBoundingClientRect().bottom<0)return;lastX+=(pointer.x-lastX)*.055;lastY+=(pointer.y-lastY)*.055;gsap.set(pointerLayer,{x:lastX*28,y:lastY*18,rotationY:lastX*4,rotationX:-lastY*3});gsap.set(scene,{x:-lastX*14,rotationY:lastX*.6,rotationX:-lastY*.4});});}
  ScrollTrigger.create({id:'aura-progress',start:0,end:'max',onUpdate:self=>{progress.querySelector('b').textContent=String(Math.round(self.progress*100)).padStart(2,'0');gsap.set(progress.querySelector('span'),{scaleY:self.progress});}});
  const concept=document.querySelector('.concept-image');concept.setAttribute('data-light','');concept.classList.remove('reveal');concept.classList.add('concept-portal');const conceptLabel=document.createElement('span');conceptLabel.className='concept-scene-label script';conceptLabel.setAttribute('aria-hidden','true');conceptLabel.textContent='The concept';concept.append(conceptLabel);
- const locationSection=document.querySelector('.location');locationSection.classList.add('journey');const track=document.createElement('div');track.className='journey-track';while(locationSection.firstChild)track.append(locationSection.firstChild);locationSection.append(track);const view=document.createElement('div');view.className='journey-view';view.innerHTML='<img src="/assets/coastal-path.webp" alt="A coastal path connecting AURA to the Mediterranean" loading="lazy"><span class="script" aria-hidden="true">A slower rhythm</span>';track.append(view);
  const architecture=document.querySelector('.architecture');architecture.classList.add('architecture-immersive');const gate=document.createElement('div');gate.className='architecture-gate';gate.append(architecture.querySelector('h2'),architecture.querySelector('.photo'));gate.querySelectorAll('.reveal').forEach(el=>el.classList.remove('reveal'));gate.insertAdjacentHTML('beforeend','<div class="gate-door gate-left" aria-hidden="true"></div><div class="gate-door gate-right" aria-hidden="true"></div>');architecture.prepend(gate);
  for(const selector of ['.location-title','.architecture-gate','.living-title']){const container=document.querySelector(selector);const foliage=document.createElement('img');foliage.src='/assets/bougainvillea.webp';foliage.alt='';foliage.setAttribute('aria-hidden','true');foliage.className='scene-foliage';foliage.loading='lazy';container.append(foliage);}
- media.add({desktop:'(min-width: 1001px)',mobile:'(max-width: 1000px)',reduce:'(prefers-reduced-motion: reduce)'},context=>{
+ media.add({desktop:'(min-width: 1001px)',mobile:'(max-width: 1000px)',atelierFits:'(min-height: 860px)',amenityFits:'(min-height: 700px)',reduce:'(prefers-reduced-motion: reduce)'},context=>{
   if(context.conditions.reduce)return;
   const desktop=context.conditions.desktop;
   // The garden picture becomes an architectural aperture before opening full width.
@@ -78,11 +77,11 @@
   gsap.fromTo(conceptLabel,{opacity:0,y:70},{opacity:1,y:0,ease:'none',scrollTrigger:{trigger:concept,start:'top 40%',end:'bottom 80%',scrub:.7}});
   if(desktop){
    const atelier=document.querySelector('.atelier');
-   ScrollTrigger.create({id:'aura-atelier',trigger:atelier,start:'top top',end:()=>'+='+innerHeight*.9,pin:true,invalidateOnRefresh:true});
-   gsap.to(track,{x:()=>-(track.scrollWidth-innerWidth),ease:'none',scrollTrigger:{id:'aura-location',trigger:locationSection,start:'top top',end:()=>'+='+(track.scrollWidth-innerWidth),pin:true,scrub:1,invalidateOnRefresh:true}});
+   // Keep controls reachable when the architectural study is taller than the screen.
+   if(context.conditions.atelierFits)ScrollTrigger.create({id:'aura-atelier',trigger:atelier,start:'top top',end:()=>'+='+innerHeight*.9,pin:true,invalidateOnRefresh:true});
    let current=-1;
    const amenity=document.querySelector('.amenities');
-   gsap.fromTo('.amenity-image',{scale:1.16},{scale:1,ease:'none',scrollTrigger:{id:'aura-amenities',trigger:amenity,start:'top top',end:()=>'+='+innerHeight*1.6,pin:true,scrub:1,onUpdate:self=>{const index=Math.min(4,Math.floor(self.progress*5));if(index!==current){current=index;activateAmenity(index);}},invalidateOnRefresh:true}});
+   gsap.fromTo('.amenity-image',{scale:1.16},{scale:1,ease:'none',scrollTrigger:{id:'aura-amenities',trigger:amenity,start:'top top',end:()=>'+='+innerHeight*1.6,pin:context.conditions.amenityFits,scrub:1,onUpdate:self=>{const index=Math.min(4,Math.floor(self.progress*5));if(index!==current){current=index;activateAmenity(index);}},invalidateOnRefresh:true}});
    const portal=gsap.timeline({scrollTrigger:{id:'aura-architecture',trigger:gate,start:'top top',end:()=>'+='+innerHeight*1.15,pin:true,scrub:1,invalidateOnRefresh:true,onUpdate:self=>{if(self.progress>.35)gate.setAttribute('data-light','');else gate.removeAttribute('data-light');updateHeader();}}});
    portal.to('.gate-left',{xPercent:-100,ease:'power2.inOut'},0).to('.gate-right',{xPercent:100,ease:'power2.inOut'},0).fromTo(gate.querySelector('.photo img'),{scale:1.3},{scale:1,ease:'power2.out'},0).to(gate.querySelector('h2'),{scale:1.25,opacity:0,ease:'power1.in'},0).fromTo(gate.querySelector('.scene-foliage'),{scale:1,xPercent:0},{scale:1.35,xPercent:35,ease:'none'},0);
   }
@@ -91,9 +90,8 @@
   const coast=document.querySelector('.coast');gsap.fromTo(coast.querySelector('img'),{scale:1.2,yPercent:-5},{scale:1.04,yPercent:5,ease:'none',scrollTrigger:{trigger:coast,start:'top bottom',end:'bottom top',scrub:1}});gsap.fromTo(coast.querySelector('h2'),{xPercent:-8},{xPercent:8,ease:'none',scrollTrigger:{trigger:coast,start:'top bottom',end:'bottom top',scrub:1}});
   const footer=document.querySelector('.footer');gsap.fromTo(footer.querySelector('img'),{scale:1.2},{scale:1,ease:'none',scrollTrigger:{trigger:footer,start:'top bottom',end:'bottom bottom',scrub:1}});gsap.fromTo(footer.querySelector('.footer-title'),{y:120,scale:.8},{y:0,scale:1,ease:'power2.out',scrollTrigger:{trigger:footer,start:'top 85%',end:'top 10%',scrub:1}});
  });
- locationSection.addEventListener('focusin',event=>{const trigger=ScrollTrigger.getById('aura-location');if(!trigger)return;const panel=event.target.closest('.location-content');if(panel){const position=Math.min(panel.offsetLeft,track.scrollWidth-innerWidth);scrollTo({top:trigger.start+position,behavior:'smooth'});}});
  document.querySelectorAll('.reveal').forEach(el=>{gsap.fromTo(el,{opacity:0,y:55,rotationX:4},{opacity:1,y:0,rotationX:0,duration:1.2,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 95%',once:true}});});
- document.querySelectorAll('.photo>img').forEach(img=>{if(img.closest('.concept-portal,.architecture-gate,.journey'))return;gsap.fromTo(img,{yPercent:-4,scale:1.14},{yPercent:4,scale:1.14,ease:'none',scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:1}});});
+ document.querySelectorAll('.photo>img').forEach(img=>{if(img.closest('.concept-portal,.architecture-gate'))return;gsap.fromTo(img,{yPercent:-4,scale:1.14},{yPercent:4,scale:1.14,ease:'none',scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:1}});});
  for(const selector of ['.residences-heading h2','.living-title h2']){const heading=document.querySelector(selector);const letters=splitHeading(heading);gsap.fromTo(letters,{yPercent:110,rotationX:-70},{yPercent:0,rotationX:0,stagger:.025,duration:.9,ease:'power3.out',scrollTrigger:{trigger:heading,start:'top 92%',once:true}});}
  if(hover.matches){document.querySelectorAll('.residence-card,.benefit').forEach(card=>{const rotateX=gsap.quickTo(card,'rotationX',{duration:.5,ease:'power2.out'}),rotateY=gsap.quickTo(card,'rotationY',{duration:.5,ease:'power2.out'});card.addEventListener('pointermove',event=>{const rect=card.getBoundingClientRect();rotateX((.5-(event.clientY-rect.top)/rect.height)*5);rotateY(((event.clientX-rect.left)/rect.width-.5)*7)});card.addEventListener('pointerleave',()=>{rotateX(0);rotateY(0)});});document.querySelectorAll('.round-button').forEach(button=>{const x=gsap.quickTo(button,'x',{duration:.5,ease:'power3.out'}),y=gsap.quickTo(button,'y',{duration:.5,ease:'power3.out'});button.addEventListener('pointermove',event=>{const rect=button.getBoundingClientRect();x((event.clientX-rect.left-rect.width/2)*.3);y((event.clientY-rect.top-rect.height/2)*.3)});button.addEventListener('pointerleave',()=>{x(0);y(0)})});}
  window.addEventListener('aura:amenity',()=>{gsap.fromTo('.amenity-image',{opacity:.25},{opacity:.72,duration:.8,ease:'power2.out',overwrite:'auto'});gsap.fromTo('#amenity-title,#amenity-copy',{opacity:0,y:22},{opacity:1,y:0,duration:.65,stagger:.08,ease:'power2.out',overwrite:'auto'});});
