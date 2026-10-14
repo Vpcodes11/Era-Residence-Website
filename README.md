@@ -4,6 +4,10 @@ An imaginary Mediterranean property brand, independently built with the user-sup
 
 Run `npm install`, then `node server.cjs` and open http://127.0.0.1:4187.
 
+For Vercel, import this repository with the Root Directory set to the repository root (leave the field empty). The checked-in `vercel.json` selects the Other framework preset, installs dependencies with `npm ci`, runs `npm run build`, and serves `dist/`. The Node server is for local previews; Vercel serves the generated static files directly. Apartment and contact routes have their own generated `index.html` files, so direct links and refreshes work. HTML extensions are preserved for the existing `/privacy.html` route.
+
+If the project was previously imported with different settings, use Framework Preset **Other** and clear any custom Root Directory. Push this configuration to the branch connected to Vercel, then deploy that new commit; redeploying an older commit will not include the fix.
+
 `dist/` is the complete deployable site. `src/` contains the original implementation; run `node build-original.cjs` after editing. Sixteen original photographs were generated using the built-in imagegen tool and are saved in `dist/assets/`. No reference photographs, video, HTML, CSS or animation scripts are used in the delivered site. Matching font families load from external font providers. Apartment data is illustrative. Enquiries are demonstration-only and are not transmitted or saved.
 
 The site supports a day/night hero, amenity tabs with keyboard navigation, a native dialog mobile menu, a native dialog enquiry form, filters and sorting, direct apartment routes, responsive layouts and reduced-motion preferences. `node qa.cjs` verifies the main journeys in Chromium.
